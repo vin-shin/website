@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vin Shin – Electrical Engineer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+
+  <!-- Aurora background -->
+  <div class="aurora" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <!-- Bento grid -->
+  <main class="bento">
+
+    <!-- Hero -->
+    <div class="panel panel-hero reveal">
+      <span class="eyebrow">EE · RF & Embedded Systems · UCSB</span>
+      <h1 class="hero-name">Vin Shin</h1>
+      <p class="hero-sub">
+        Aspiring RFIC Engineer with a foundation in mixed-signal PCB design, embedded firmware,
+        and RF systems. Future Electrical Technical Director for UCSB Gaucho Racing's FSAE Electric vehicle.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects-panel" class="btn btn-primary">View Projects</a>
+        <a href="mailto:vinshin@ucsb.edu" class="btn btn-ghost">Get in Touch</a>
+      </div>
+      <p class="hero-location">Santa Barbara, CA</p>
+    </div>
+
+    <!-- Photo -->
+    <div class="panel panel-photo reveal">
+      <div class="photo-frame">
+        <img
+          src="./images/profile.jpg"
+          alt="Vin Shin"
+          onload="this.classList.add('loaded')"
+          onerror="this.remove()"
+        />
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="panel panel-about reveal">
+      <p class="panel-label">About</p>
+      <p class="about-bio">
+        Second-year Electrical Engineering student at UCSB with an interest in RFIC and mixed-signal hardware design,
+        pursuing a career in RF/RFIC engineering. Currently serving as Electrical Technical Director for Gaucho
+        Racing, a team building an FSAE Electric vehicle. My work
+        spans RF systems design, Power Electronics, PCB layout, STM32 firmware, and CAN network architecture. 
+      </p>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-num">3.76</span>
+          <span class="stat-lbl">GPA · Dean's Honors</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">2028</span>
+          <span class="stat-lbl">UCSB BS EE</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">10+</span>
+          <span class="stat-lbl">HW Projects</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">0.1uF</span>
+          <span class="stat-lbl">favorite capacitance</span>
+        </div>
+        <p class="about-bio">
+        Outside of school, I love photography, FPV drones, hiking, and cars. i really want a miata.
+      </p>
+        
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="panel panel-skills reveal">
+      <p class="panel-label">Skills</p>
+      <div class="skill-rows">
+        <div class="skill-row">
+          <span class="skill-cat">Languages</span>
+          <div class="pills">
+            <span class="pill">C / C++</span>
+            <span class="pill">Python</span>
+            <span class="pill">MATLAB</span>
+            <span class="pill">STM32 HAL/LL</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">EDA Tools</span>
+          <div class="pills">
+            <span class="pill">Altium Designer</span>
+            <span class="pill">KiCad</span>
+            <span class="pill">LTspice</span>
+            <span class="pill">Keysight ADS</span>
+            <span class="pill">SolidWorks</span>
+            <span class="pill">RapidHarness</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Domains</span>
+          <div class="pills">
+            <span class="pill">RF Systems</span>
+            <span class="pill">Power Electronics</span>
+            <span class="pill">Embedded Systems</span>
+            <span class="pill">Mixed-Signal PCB</span>
+            <span class="pill">BMS</span>
+            <span class="pill">Wire Harness</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Bench</span>
+          <div class="pills">
+            <span class="pill">Oscilloscope</span>
+            <span class="pill">Logic Analyzer</span>
+            <span class="pill">SMD / THT Rework</span>
+            <span class="pill">Thermal Imaging</span>
+            <span class="pill">E-Load / PSU</span>
+          </div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-cat">Standards</span>
+          <div class="pills">
+            <span class="pill">FSAE EV + DV Rules</span>
+            <span class="pill">IPC-2221/2222</span>
+            <span class="pill">UL/IEC HV Safety</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="panel panel-exp reveal">
+      <p class="panel-label">Experience</p>
+      <div class="exp-entries">
+
+        <div class="exp-entry">
+          <span class="exp-date">June 2026 – Present</span>
+          <div class="exp-content">
+            <div class="exp-title">Electrical Technical Director</div>
+            <div class="exp-org">UCSB Gaucho Racing · GR27</div>
+            <ul class="bullet-list">
+              <li>Lead electrical team across 4 subteams: Electronic Controls, Driverless, LV Power &amp; Harness, and Powertrain Electronics.</li>
+              <li>Own system-level architecture: power budget, CAN DBC, shutdown circuit state machine, and driverless system conversion for FSAE EV + DV rules compliance.</li>
+              <li>Single point of technical authority for all electrical design reviews, cross-team interface disputes, and integration testing.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-entry">
+          <span class="exp-date">June 2025 – June 2026</span>
+          <div class="exp-content">
+            <div class="exp-title">Low Voltage Electronics Lead</div>
+            <div class="exp-org">UCSB Gaucho Racing · GR26</div>
+            <ul class="bullet-list">
+              <li>Led LV subsystem design for GR26: GLV battery, DC-DC power distribution, wire harness, driver interface, and sensor integration.</li>
+              <li>Reduced full-vehicle connector count 60% (52 → 21) through consolidated harness architecture.</li>
+              <li>Delivered CAN-based driver interface PCB (STM32 + WS2812b) and IP-rated attic enclosure for primary power distribution.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="panel panel-projects" id="projects-panel">
+      <p class="panel-label reveal">Projects</p>
+      <div class="projects-grid" id="projects-grid"></div>
+    </div>
+
+    <!-- Contact -->
+    <div class="panel panel-contact reveal">
+      <div class="contact-left">
+        <p class="panel-label">Get in Touch</p>
+        <p class="contact-sub">Open to internships, research collaborations, or just talking hardware.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:vinshin@ucsb.edu" class="contact-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          vinshin@ucsb.edu
+        </a>
+        <a href="https://linkedin.com/in/vinshin623" target="_blank" rel="noopener" class="contact-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          linkedin.com/in/vinshin623
+        </a>
+        <a href="https://github.com/vin-shin" target="_blank" rel="noopener" class="contact-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          github.com/vin-shin
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer><p>© 2026 Vin Shin</p></footer>
+
+  <script src="projects-data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
