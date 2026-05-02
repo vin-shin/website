@@ -697,6 +697,7 @@ footer {
     grid-row: auto;
   }
   .panel-photo   { min-height: 220px; }
+  .photo-frame img { object-position: center 20%; }
   .panel-contact { flex-direction: column; align-items: flex-start; }
   .projects-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
 
