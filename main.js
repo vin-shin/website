@@ -5,7 +5,13 @@ function buildThumb(p) {
   if (p.model) {
     const t = p.modelOrbit ? p.modelOrbit.theta : 0;
     const ph = p.modelOrbit ? p.modelOrbit.phi   : 90;
-    return `<model-viewer src="${p.model}" camera-orbit="${t}deg ${ph}deg auto" data-project-id="${p.id}" interaction-prompt="none" shadow-intensity="0" exposure="0.5" touch-action="pan-y" style="width:100%;height:100%;background:#0f110c;display:block;"></model-viewer>`;
+    const overlay = p.thumb
+      ? `<img src="${p.thumb}" aria-hidden="true" class="thumb-overlay" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;transition:opacity 0.6s ease;" />`
+      : '';
+    return `<div style="position:relative;width:100%;height:100%;">
+      <model-viewer src="${p.model}" camera-orbit="${t}deg ${ph}deg auto" data-project-id="${p.id}" interaction-prompt="none" shadow-intensity="0" exposure="0.5" touch-action="pan-y" style="width:100%;height:100%;background:#0f110c;display:block;"></model-viewer>
+      ${overlay}
+    </div>`;
   }
   if (p.image) {
     return `<img src="${p.image}" alt="${p.title}" loading="lazy" style="width:100%;height:220px;object-fit:cover;display:block;" />`;
@@ -85,6 +91,11 @@ grid.querySelectorAll('model-viewer').forEach(mv => {
     }
     animId = requestAnimationFrame(physTick);
   }
+
+  mv.addEventListener('load', () => {
+    const overlay = mv.parentElement.querySelector('.thumb-overlay');
+    if (overlay) overlay.style.opacity = '0';
+  });
 
   mv.addEventListener('mouseenter', () => {
     hovered = true;

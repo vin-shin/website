@@ -16,8 +16,11 @@ if (!p) {
   const initTheta  = p.modelOrbit ? p.modelOrbit.theta  : 0;
   const initPhi    = p.modelOrbit ? p.modelOrbit.phi    : 90;
   const initRadius = p.modelOrbit && p.modelOrbit.radius ? p.modelOrbit.radius : 'auto';
+  const thumbOverlay = p.thumb
+    ? `<img src="${p.thumb}" aria-hidden="true" class="proj-thumb-overlay" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;transition:opacity 0.6s ease;z-index:1;" />`
+    : '';
   const heroInner = p.model
-    ? `<model-viewer src="${p.model}" camera-orbit="${initTheta}deg ${initPhi}deg ${initRadius}" interaction-prompt="none" shadow-intensity="0.4" exposure="0.5" touch-action="pan-y" style="width:100%;height:100%;background:transparent;display:block;"></model-viewer>`
+    ? `${thumbOverlay}<model-viewer src="${p.model}" camera-orbit="${initTheta}deg ${initPhi}deg ${initRadius}" interaction-prompt="none" shadow-intensity="0.4" exposure="0.5" touch-action="pan-y" style="width:100%;height:100%;background:transparent;display:block;"></model-viewer>`
     : p.image
       ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block;" />`
       : `<div class="proj-hero-icon">${p.icon}</div>`;
@@ -61,7 +64,11 @@ if (!p) {
       requestAnimationFrame(physTick);
     }
 
-    mv.addEventListener('load', () => requestAnimationFrame(physTick));
+    mv.addEventListener('load', () => {
+      const overlay = content.querySelector('.proj-thumb-overlay');
+      if (overlay) overlay.style.opacity = '0';
+      requestAnimationFrame(physTick);
+    });
     mv.addEventListener('mouseenter', () => { hovered = true; });
     mv.addEventListener('mouseleave', () => { hovered = false; });
   }
