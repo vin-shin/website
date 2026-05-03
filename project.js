@@ -13,10 +13,11 @@ if (!p) {
 } else {
   document.title = `${p.title} – Vin Shin`;
 
-  const initTheta = p.modelOrbit ? p.modelOrbit.theta : 0;
-  const initPhi   = p.modelOrbit ? p.modelOrbit.phi   : 90;
+  const initTheta  = p.modelOrbit ? p.modelOrbit.theta  : 0;
+  const initPhi    = p.modelOrbit ? p.modelOrbit.phi    : 90;
+  const initRadius = p.modelOrbit && p.modelOrbit.radius ? p.modelOrbit.radius : 'auto';
   const heroInner = p.model
-    ? `<model-viewer src="${p.model}" camera-orbit="${initTheta}deg ${initPhi}deg auto" interaction-prompt="none" shadow-intensity="0.4" exposure="0.5" touch-action="pan-y" style="width:100%;height:100%;background:transparent;display:block;"></model-viewer>`
+    ? `<model-viewer src="${p.model}" camera-orbit="${initTheta}deg ${initPhi}deg ${initRadius}" interaction-prompt="none" shadow-intensity="0.4" exposure="0.5" touch-action="pan-y" style="width:100%;height:100%;background:transparent;display:block;"></model-viewer>`
     : p.image
       ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block;" />`
       : `<div class="proj-hero-icon">${p.icon}</div>`;
@@ -49,13 +50,14 @@ if (!p) {
 
   const mv = content.querySelector('model-viewer');
   if (mv) {
-    const REST_PHI = p.modelOrbit ? p.modelOrbit.phi : 90;
+    const REST_PHI    = p.modelOrbit ? p.modelOrbit.phi : 90;
+    const REST_RADIUS = p.modelOrbit && p.modelOrbit.radius ? p.modelOrbit.radius : 'auto';
     let theta = p.modelOrbit ? p.modelOrbit.theta : 0;
     let hovered = false;
 
     function physTick() {
       if (!hovered) theta += 0.15;
-      mv.setAttribute('camera-orbit', `${theta}deg ${REST_PHI}deg auto`);
+      mv.setAttribute('camera-orbit', `${theta}deg ${REST_PHI}deg ${REST_RADIUS}`);
       requestAnimationFrame(physTick);
     }
 

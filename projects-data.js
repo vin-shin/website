@@ -80,7 +80,7 @@ const projects = [
     image: null,
     model: './images/3dmodels/wireharness-v1.glb',
     thumb: './images/img%20thumbs/wireharness.png',
-    modelOrbit: { theta: 295, phi: 65 },
+    modelOrbit: { theta: 295, phi: 65, radius: '60%' },
     gradient: 'linear-gradient(135deg, #e9724c 0%, #333333 100%)',
     summary: 'Full-vehicle electrical schematic across 8 subsystems with wire-level documentation for fabrication.',
     description: 'Developed full-vehicle electrical schematic in RapidHarness mapping power, CAN, and analog signal paths across 8 subsystems, then routed the harness in SolidWorks Routing maintaining FSAE clearance through monocoque.',
