@@ -4,10 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vin Shin – Electrical Engineer</title>
+  <link rel="icon" type="image/png" href="./images/logotrue.png" />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script>
+    // Defer model-viewer until page is interactive so it doesn't block rendering
+    window.addEventListener('load', () => {
+      const s = document.createElement('script');
+      s.type = 'module';
+      s.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
+      document.head.appendChild(s);
+    });
+  </script>
 </head>
 <body>
 
@@ -43,6 +52,7 @@
         <img
           src="./images/profile.jpg"
           alt="Vin Shin"
+          fetchpriority="high"
           onload="this.classList.add('loaded')"
           onerror="this.remove()"
         />
@@ -179,7 +189,8 @@
     </div>
 
     <!-- Contact -->
-    <div class="panel panel-contact reveal">
+    <div class="panel panel-contact reveal" style="position:relative;">
+      <img src="./images/logotrue.png" alt="" aria-hidden="true" style="position:absolute;top:1.25rem;right:1.25rem;height:48px;width:auto;opacity:0.85;" />
       <div class="contact-left">
         <p class="panel-label">Get in Touch</p>
         <p class="contact-sub">Open to internships, research collaborations, or just talking hardware.</p>
