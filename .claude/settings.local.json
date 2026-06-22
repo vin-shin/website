@@ -3,7 +3,12 @@
     "allow": [
       "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --yes)",
       "PowerShell(npm *)",
-      "PowerShell(Start-Process \"C:\\\\Users\\\\vinsh\\\\Documents\\\\Personal Projects\\\\Website\\\\index.html\")"
+      "PowerShell(Start-Process \"C:\\\\Users\\\\vinsh\\\\Documents\\\\Personal Projects\\\\Website\\\\index.html\")",
+      "Bash(git add *)",
+      "Bash(git rm *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git restore *)"
     ]
   }
 }
