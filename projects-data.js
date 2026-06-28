@@ -41,7 +41,7 @@ const projects = [
       '4-layer mixed-signal PCB with expanded power delivery network supporting 3× the phase current paths of Mako Shortfin while maintaining isolated analog and digital returns',
       'Cascaded bus-to-12V-to-5V-to-3.3V power conversion retained from Shortfin; 5V rail exposed externally for three independent encoder sensor interfaces',
     ],
-    tags: ['STM32', 'FOC', 'Power Electronics', 'Altium Designer', '4-Layer PCB', 'Gate Drivers', 'Multi-Motor'],
+    tags: ['STM32', 'FOC', 'Power Electronics', 'Altium Designer', '4-Layer PCB', 'Multi-Motor'],
     icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>`,
   },
   {
