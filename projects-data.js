@@ -52,7 +52,7 @@ const projects = [
     image: null,
     model: './images/3dmodels/makoshortfin-v1.glb',
     thumb: './images/img%20thumbs/shortfin.png',
-    gradient: 'linear-gradient(135deg, #e9724c 0%, #6b2d18 100%)',
+    gradient: 'linear-gradient(135deg, #eef36a 0%, #6b2d18 100%)',
     summary: 'Full bring-up of a 1.5 kW FOC inverter — 30 kHz switching, 25 A peak AC, closed-loop current + velocity control.',
     description: 'Designed and brought up a 1.5 kW Field-Oriented Control inverter for BLDC motors: 30 kHz switching at 25 A peak AC current from a 60 V DC bus using Infineon OptiMOS MOSFETs and UCC27211A half-bridge gate drivers.',
     bullets: [
@@ -71,7 +71,7 @@ const projects = [
     image: null,
     model: './images/3dmodels/BMS-v1.glb',
     thumb: './images/img%20thumbs/bms.png',
-    gradient: 'linear-gradient(135deg, #e9724c 0%, #80a1d4 100%)',
+    gradient: 'linear-gradient(135deg, #eef36a 0%, #80a1d4 100%)',
     summary: 'Segment-level BMS PCB using NXP MC33771C AFE for GR26\'s 144S2P 588V pack — 39% board area reduction vs GR25.',
     description: 'Designed schematic and 4-layer PCB for GR26 segment-level BMS modules using NXP MC33771C AFE. The tractive system runs a 2p140s (588V) configuration requiring 10 modules daisy-chained via capacitive-isolation TPL — achieved 39% board area reduction vs GR25 with deliberate clearance and isolation gap choices for high-voltage reliability.',
     bullets: [
@@ -90,7 +90,7 @@ const projects = [
     model: './images/3dmodels/wireharness-v1.glb',
     thumb: './images/img%20thumbs/wireharness.png',
     modelOrbit: { theta: 295, phi: 65, radius: '60%' },
-    gradient: 'linear-gradient(135deg, #e9724c 0%, #333333 100%)',
+    gradient: 'linear-gradient(135deg, #eef36a 0%, #333333 100%)',
     summary: 'Full-vehicle electrical schematic across 8 subsystems with wire-level documentation for fabrication.',
     description: 'Developed full-vehicle electrical schematic in RapidHarness mapping power, CAN, and analog signal paths across 8 subsystems, then routed the harness in SolidWorks Routing maintaining FSAE clearance through monocoque.',
     bullets: [
