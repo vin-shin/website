@@ -264,9 +264,9 @@ main.bento {
   border: none;
   cursor: pointer;
 }
-.btn-primary { background: var(--peach); color: #fff; }
+.btn-primary { background: var(--peach); color: #0f110c; }
 .btn-primary:hover {
-  background: #d4623f;
+  background: #d8dd52;
   transform: translateY(-2px);
   box-shadow: 0 6px 22px rgba(var(--peach-rgb), 0.38);
 }
