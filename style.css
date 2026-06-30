@@ -244,29 +244,28 @@ main.bento {
   color: var(--bone);
 }
 
-.hero-name span {
+.hero-name {
   position: relative;
-  display: inline-block;
-  transition: color 0.35s ease;
   cursor: default;
 }
 
-.hero-name span::after {
-  content: attr(data-hover);
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--bone);
-  opacity: 0;
+.name-default,
+.name-hover {
   transition: opacity 0.35s ease;
-  white-space: nowrap;
 }
 
-.hero-name span:hover {
-  color: transparent;
+.name-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
 }
 
-.hero-name span:hover::after {
+.hero-name:hover .name-default {
+  opacity: 0;
+}
+
+.hero-name:hover .name-hover {
   opacity: 1;
 }
 
