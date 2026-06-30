@@ -245,28 +245,8 @@ main.bento {
 }
 
 .hero-name {
-  position: relative;
   cursor: default;
-}
-
-.name-default,
-.name-hover {
-  transition: opacity 0.35s ease;
-}
-
-.name-hover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-}
-
-.hero-name:hover .name-default {
-  opacity: 0;
-}
-
-.hero-name:hover .name-hover {
-  opacity: 1;
+  transition: opacity 0.25s ease;
 }
 
 .hero-sub {

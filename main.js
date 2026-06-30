@@ -1,5 +1,25 @@
 // projects array lives in projects-data.js (loaded before this script)
 
+// ── Hero name hover swap ──────────────────────────────────────────
+(function () {
+  const el = document.querySelector('.hero-name');
+  if (!el) return;
+  const original = 'Vin Shin';
+  const alternate = 'shin.vin';
+  let swapped = false;
+
+  function swap(to) {
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.textContent = to;
+      el.style.opacity = '1';
+    }, 250);
+  }
+
+  el.addEventListener('mouseenter', () => { if (!swapped) { swap(alternate); swapped = true; } });
+  el.addEventListener('mouseleave', () => { if (swapped)  { swap(original);  swapped = false; } });
+})();
+
 // ── Render project cards ──────────────────────────────────────────
 function buildThumb(p) {
   if (p.model) {
