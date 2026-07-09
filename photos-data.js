@@ -50,6 +50,18 @@ const photos = [
     "aperture": 2.8
   },
   {
+    "file": "DSC06100.jpg",
+    "src": "photos/DSC06100.jpg",
+    "date": "2026-05-31",
+    "time": "22:13",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 70,
+    "aperture": 2.8
+  },
+  {
     "file": "DSC06094.jpg",
     "src": "photos/DSC06094.jpg",
     "date": "2026-05-31",
@@ -71,6 +83,78 @@ const photos = [
     "lon": null,
     "camera": "Sony ILCE-7M4",
     "focalLength": 70,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC06058.jpg",
+    "src": "photos/DSC06058.jpg",
+    "date": "2026-05-31",
+    "time": "21:49",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 70,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC05985.jpg",
+    "src": "photos/DSC05985.jpg",
+    "date": "2026-05-31",
+    "time": "20:33",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 24,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC05929.jpg",
+    "src": "photos/DSC05929.jpg",
+    "date": "2026-05-31",
+    "time": "20:19",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 70,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC05913.jpg",
+    "src": "photos/DSC05913.jpg",
+    "date": "2026-05-31",
+    "time": "20:08",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 61.5,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC05905.jpg",
+    "src": "photos/DSC05905.jpg",
+    "date": "2026-05-31",
+    "time": "19:08",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 70,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC05858.jpg",
+    "src": "photos/DSC05858.jpg",
+    "date": "2026-05-30",
+    "time": "20:45",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 49.9,
     "aperture": 2.8
   },
   {
