@@ -38,7 +38,7 @@ if (!photos || photos.length === 0) {
     .map(
       (p, i) => `
     <button type="button" class="photo-card" data-index="${i}" aria-label="View ${p.file}">
-      <img src="${p.src}" alt="" loading="lazy" />
+      <img src="${p.thumb || p.src}" alt="" loading="lazy" decoding="async" />
       <span class="photo-card-meta">${cardMetaHtml(p)}</span>
     </button>`
     )

@@ -4,6 +4,7 @@ const photos = [
   {
     "file": "GR26_3.png",
     "src": "photos/GR26_3.png",
+    "thumb": "photos/thumbs/GR26_3.jpg",
     "date": "2026-06-20",
     "time": "13:00",
     "location": null,
@@ -16,6 +17,7 @@ const photos = [
   {
     "file": "DSC06638.jpg",
     "src": "photos/DSC06638.jpg",
+    "thumb": "photos/thumbs/DSC06638.jpg",
     "date": "2026-06-20",
     "time": "12:47",
     "location": null,
@@ -28,6 +30,7 @@ const photos = [
   {
     "file": "DSC06289.jpg",
     "src": "photos/DSC06289.jpg",
+    "thumb": "photos/thumbs/DSC06289.jpg",
     "date": "2026-06-06",
     "time": "22:16",
     "location": null,
@@ -40,6 +43,7 @@ const photos = [
   {
     "file": "DSC06125.jpg",
     "src": "photos/DSC06125.jpg",
+    "thumb": "photos/thumbs/DSC06125.jpg",
     "date": "2026-05-31",
     "time": "22:19",
     "location": null,
@@ -52,6 +56,7 @@ const photos = [
   {
     "file": "DSC06100.jpg",
     "src": "photos/DSC06100.jpg",
+    "thumb": "photos/thumbs/DSC06100.jpg",
     "date": "2026-05-31",
     "time": "22:13",
     "location": null,
@@ -64,6 +69,7 @@ const photos = [
   {
     "file": "DSC06094.jpg",
     "src": "photos/DSC06094.jpg",
+    "thumb": "photos/thumbs/DSC06094.jpg",
     "date": "2026-05-31",
     "time": "22:12",
     "location": null,
@@ -76,6 +82,7 @@ const photos = [
   {
     "file": "DSC06070.jpg",
     "src": "photos/DSC06070.jpg",
+    "thumb": "photos/thumbs/DSC06070.jpg",
     "date": "2026-05-31",
     "time": "21:50",
     "location": null,
@@ -88,6 +95,7 @@ const photos = [
   {
     "file": "DSC06058.jpg",
     "src": "photos/DSC06058.jpg",
+    "thumb": "photos/thumbs/DSC06058.jpg",
     "date": "2026-05-31",
     "time": "21:49",
     "location": null,
@@ -100,6 +108,7 @@ const photos = [
   {
     "file": "DSC05985.jpg",
     "src": "photos/DSC05985.jpg",
+    "thumb": "photos/thumbs/DSC05985.jpg",
     "date": "2026-05-31",
     "time": "20:33",
     "location": null,
@@ -112,6 +121,7 @@ const photos = [
   {
     "file": "DSC05929.jpg",
     "src": "photos/DSC05929.jpg",
+    "thumb": "photos/thumbs/DSC05929.jpg",
     "date": "2026-05-31",
     "time": "20:19",
     "location": null,
@@ -124,6 +134,7 @@ const photos = [
   {
     "file": "DSC05913.jpg",
     "src": "photos/DSC05913.jpg",
+    "thumb": "photos/thumbs/DSC05913.jpg",
     "date": "2026-05-31",
     "time": "20:08",
     "location": null,
@@ -136,6 +147,7 @@ const photos = [
   {
     "file": "DSC05905.jpg",
     "src": "photos/DSC05905.jpg",
+    "thumb": "photos/thumbs/DSC05905.jpg",
     "date": "2026-05-31",
     "time": "19:08",
     "location": null,
@@ -148,6 +160,7 @@ const photos = [
   {
     "file": "DSC05858.jpg",
     "src": "photos/DSC05858.jpg",
+    "thumb": "photos/thumbs/DSC05858.jpg",
     "date": "2026-05-30",
     "time": "20:45",
     "location": null,
@@ -160,6 +173,7 @@ const photos = [
   {
     "file": "DSC05849-2.jpg",
     "src": "photos/DSC05849-2.jpg",
+    "thumb": "photos/thumbs/DSC05849-2.jpg",
     "date": "2026-05-30",
     "time": "20:44",
     "location": null,
@@ -172,6 +186,7 @@ const photos = [
   {
     "file": "DSC02941.jpg",
     "src": "photos/DSC02941.jpg",
+    "thumb": "photos/thumbs/DSC02941.jpg",
     "date": "2025-06-18",
     "time": "03:10",
     "location": null,
@@ -184,6 +199,7 @@ const photos = [
   {
     "file": "DSC02798.jpg",
     "src": "photos/DSC02798.jpg",
+    "thumb": "photos/thumbs/DSC02798.jpg",
     "date": "2025-05-31",
     "time": "17:02",
     "location": null,
@@ -196,6 +212,7 @@ const photos = [
   {
     "file": "DSC02791.jpg",
     "src": "photos/DSC02791.jpg",
+    "thumb": "photos/thumbs/DSC02791.jpg",
     "date": "2025-05-31",
     "time": "17:02",
     "location": null,
@@ -208,6 +225,7 @@ const photos = [
   {
     "file": "DSC02718.jpg",
     "src": "photos/DSC02718.jpg",
+    "thumb": "photos/thumbs/DSC02718.jpg",
     "date": "2025-05-31",
     "time": "16:53",
     "location": null,
@@ -220,6 +238,7 @@ const photos = [
   {
     "file": "DSC02684.jpg",
     "src": "photos/DSC02684.jpg",
+    "thumb": "photos/thumbs/DSC02684.jpg",
     "date": "2025-05-31",
     "time": "16:47",
     "location": null,
@@ -232,6 +251,7 @@ const photos = [
   {
     "file": "DSC02649.jpg",
     "src": "photos/DSC02649.jpg",
+    "thumb": "photos/thumbs/DSC02649.jpg",
     "date": "2025-05-31",
     "time": "16:43",
     "location": null,
@@ -244,6 +264,7 @@ const photos = [
   {
     "file": "DSC02225.jpg",
     "src": "photos/DSC02225.jpg",
+    "thumb": "photos/thumbs/DSC02225.jpg",
     "date": "2025-05-31",
     "time": "15:02",
     "location": null,
@@ -256,6 +277,7 @@ const photos = [
   {
     "file": "DSC02179.jpg",
     "src": "photos/DSC02179.jpg",
+    "thumb": "photos/thumbs/DSC02179.jpg",
     "date": "2025-05-31",
     "time": "15:02",
     "location": null,
@@ -268,6 +290,7 @@ const photos = [
   {
     "file": "DSC02206.jpg",
     "src": "photos/DSC02206.jpg",
+    "thumb": "photos/thumbs/DSC02206.jpg",
     "date": "2025-05-31",
     "time": "14:58",
     "location": null,
@@ -280,6 +303,7 @@ const photos = [
   {
     "file": "DSC02109.jpg",
     "src": "photos/DSC02109.jpg",
+    "thumb": "photos/thumbs/DSC02109.jpg",
     "date": "2025-05-31",
     "time": "14:49",
     "location": null,
@@ -292,6 +316,7 @@ const photos = [
   {
     "file": "DSC01406-2.jpg",
     "src": "photos/DSC01406-2.jpg",
+    "thumb": "photos/thumbs/DSC01406-2.jpg",
     "date": "2025-05-11",
     "time": "16:53",
     "location": null,
@@ -304,6 +329,7 @@ const photos = [
   {
     "file": "DSC01389.jpg",
     "src": "photos/DSC01389.jpg",
+    "thumb": "photos/thumbs/DSC01389.jpg",
     "date": "2025-05-11",
     "time": "16:43",
     "location": null,
@@ -316,6 +342,7 @@ const photos = [
   {
     "file": "DSC01340.jpg",
     "src": "photos/DSC01340.jpg",
+    "thumb": "photos/thumbs/DSC01340.jpg",
     "date": "2025-05-11",
     "time": "16:36",
     "location": null,
@@ -328,6 +355,7 @@ const photos = [
   {
     "file": "DSC01317.jpg",
     "src": "photos/DSC01317.jpg",
+    "thumb": "photos/thumbs/DSC01317.jpg",
     "date": "2025-05-11",
     "time": "16:33",
     "location": null,
@@ -340,6 +368,7 @@ const photos = [
   {
     "file": "DSCF4743.jpg",
     "src": "photos/DSCF4743.jpg",
+    "thumb": "photos/thumbs/DSCF4743.jpg",
     "date": "2024-09-03",
     "time": "19:12",
     "location": null,
@@ -352,6 +381,7 @@ const photos = [
   {
     "file": "DSCF4735.jpg",
     "src": "photos/DSCF4735.jpg",
+    "thumb": "photos/thumbs/DSCF4735.jpg",
     "date": "2024-09-03",
     "time": "19:09",
     "location": null,
@@ -364,6 +394,7 @@ const photos = [
   {
     "file": "DSCF4431.jpg",
     "src": "photos/DSCF4431.jpg",
+    "thumb": "photos/thumbs/DSCF4431.jpg",
     "date": "2024-07-25",
     "time": "22:52",
     "location": null,
@@ -376,6 +407,7 @@ const photos = [
   {
     "file": "DSCF4208_Original.JPG",
     "src": "photos/DSCF4208_Original.JPG",
+    "thumb": "photos/thumbs/DSCF4208_Original.jpg",
     "date": "2024-06-28",
     "time": "18:11",
     "location": null,
@@ -388,6 +420,7 @@ const photos = [
   {
     "file": "DSCF4186_Original.JPG",
     "src": "photos/DSCF4186_Original.JPG",
+    "thumb": "photos/thumbs/DSCF4186_Original.jpg",
     "date": "2024-06-28",
     "time": "16:34",
     "location": null,
@@ -400,6 +433,7 @@ const photos = [
   {
     "file": "DSCF4152_Original.JPG",
     "src": "photos/DSCF4152_Original.JPG",
+    "thumb": "photos/thumbs/DSCF4152_Original.jpg",
     "date": "2024-06-28",
     "time": "13:28",
     "location": null,
@@ -412,6 +446,7 @@ const photos = [
   {
     "file": "DSCF4145_Original.JPG",
     "src": "photos/DSCF4145_Original.JPG",
+    "thumb": "photos/thumbs/DSCF4145_Original.jpg",
     "date": "2024-06-28",
     "time": "13:22",
     "location": null,
@@ -424,6 +459,7 @@ const photos = [
   {
     "file": "DSCF4099_Original.JPG",
     "src": "photos/DSCF4099_Original.JPG",
+    "thumb": "photos/thumbs/DSCF4099_Original.jpg",
     "date": "2024-06-28",
     "time": "11:11",
     "location": null,
@@ -436,6 +472,7 @@ const photos = [
   {
     "file": "DSCF4095_Original.JPG",
     "src": "photos/DSCF4095_Original.JPG",
+    "thumb": "photos/thumbs/DSCF4095_Original.jpg",
     "date": "2024-06-28",
     "time": "11:09",
     "location": null,
@@ -448,6 +485,7 @@ const photos = [
   {
     "file": "DSCF2962.jpg",
     "src": "photos/DSCF2962.jpg",
+    "thumb": "photos/thumbs/DSCF2962.jpg",
     "date": "2024-04-06",
     "time": "19:25",
     "location": null,
@@ -460,6 +498,7 @@ const photos = [
   {
     "file": "DSCF2811.jpg",
     "src": "photos/DSCF2811.jpg",
+    "thumb": "photos/thumbs/DSCF2811.jpg",
     "date": "2024-04-02",
     "time": "15:00",
     "location": null,
@@ -472,6 +511,7 @@ const photos = [
   {
     "file": "DSCF2775.jpg",
     "src": "photos/DSCF2775.jpg",
+    "thumb": "photos/thumbs/DSCF2775.jpg",
     "date": "2024-04-02",
     "time": "13:44",
     "location": null,
@@ -484,6 +524,7 @@ const photos = [
   {
     "file": "DSCF2650.jpg",
     "src": "photos/DSCF2650.jpg",
+    "thumb": "photos/thumbs/DSCF2650.jpg",
     "date": "2024-04-01",
     "time": "16:53",
     "location": null,
@@ -496,6 +537,7 @@ const photos = [
   {
     "file": "DSCF1967.jpg",
     "src": "photos/DSCF1967.jpg",
+    "thumb": "photos/thumbs/DSCF1967.jpg",
     "date": "2024-02-11",
     "time": "17:31",
     "location": null,

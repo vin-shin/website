@@ -1,22 +1,28 @@
 // Scans photos/ for image files, pulls EXIF date/time/GPS from each, reverse-geocodes
-// any GPS coordinates into a place name (cached), and writes photos-data.js for photos.html.
+// any GPS coordinates into a place name (cached), generates a small compressed thumbnail
+// for the gallery grid, and writes photos-data.js for photos.html. The lightbox still
+// loads the full-resolution original when a photo is opened.
 //
 // Usage: npm run build:photos
 
-import { readdir, stat, readFile, writeFile } from 'node:fs/promises';
+import { readdir, stat, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import exifr from 'exifr';
+import sharp from 'sharp';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const PHOTOS_DIR = path.join(ROOT, 'photos');
+const THUMBS_DIR = path.join(PHOTOS_DIR, 'thumbs');
 const OUTPUT_FILE = path.join(ROOT, 'photos-data.js');
 const CACHE_FILE = path.join(__dirname, 'geocode-cache.json');
 const OVERRIDES_FILE = path.join(__dirname, 'photo-overrides.json');
 const CONTACT_EMAIL = 'vinshin623@gmail.com';
 const EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif']);
+const THUMB_WIDTH = 900;
+const THUMB_QUALITY = 78;
 
 async function loadOverrides() {
   if (!existsSync(OVERRIDES_FILE)) return {};
@@ -97,14 +103,37 @@ function titleCaseMake(make) {
   return /^[A-Z0-9 ]+$/.test(make) ? make.charAt(0) + make.slice(1).toLowerCase() : make;
 }
 
+async function ensureThumb(file, filePath, sourceMtime) {
+  const thumbName = `${path.parse(file).name}.jpg`;
+  const thumbPath = path.join(THUMBS_DIR, thumbName);
+
+  if (existsSync(thumbPath)) {
+    const { mtime: thumbMtime } = await stat(thumbPath);
+    if (thumbMtime >= sourceMtime) return `photos/thumbs/${thumbName}`;
+  }
+
+  await sharp(filePath)
+    .rotate() // apply EXIF orientation before stripping metadata
+    .resize({ width: THUMB_WIDTH, withoutEnlargement: true })
+    .jpeg({ quality: THUMB_QUALITY })
+    .toFile(thumbPath);
+
+  return `photos/thumbs/${thumbName}`;
+}
+
 async function main() {
   if (!existsSync(PHOTOS_DIR)) {
     console.error(`No photos/ folder found at ${PHOTOS_DIR}`);
     process.exit(1);
   }
 
-  const entries = await readdir(PHOTOS_DIR);
-  const files = entries.filter((f) => EXTENSIONS.has(path.extname(f).toLowerCase()));
+  await mkdir(THUMBS_DIR, { recursive: true });
+
+  const entries = await readdir(PHOTOS_DIR, { withFileTypes: true });
+  const files = entries
+    .filter((e) => e.isFile())
+    .map((e) => e.name)
+    .filter((f) => EXTENSIONS.has(path.extname(f).toLowerCase()));
 
   if (files.length === 0) {
     console.warn('No photos found in photos/. Writing an empty gallery.');
@@ -126,6 +155,7 @@ async function main() {
 
     const takenAt = exif.DateTimeOriginal || exif.CreateDate || exif.ModifyDate || null;
     const { mtime } = await stat(filePath);
+    const thumb = await ensureThumb(file, filePath, mtime);
 
     let location = override.location ?? null;
     if (!location && typeof exif.latitude === 'number' && typeof exif.longitude === 'number') {
@@ -143,6 +173,7 @@ async function main() {
     photos.push({
       file,
       src: `photos/${file}`,
+      thumb,
       date,
       time,
       location,
