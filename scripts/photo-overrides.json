@@ -4,5 +4,12 @@
     "time": "13:00",
     "focalLength": 35,
     "aperture": 2.8
+  },
+  "DSC02179.jpg": {
+    "date": "2025-05-31",
+    "time": "15:02",
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 70,
+    "aperture": 2.8
   }
 }
