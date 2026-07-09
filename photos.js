@@ -73,16 +73,71 @@ window.addEventListener('resize', () => {
 // ── Lightbox ──────────────────────────────────────────────────────
 const overlay = document.getElementById('lightbox-overlay');
 const lbImg = document.getElementById('lightbox-img');
+const lbProgressWrap = document.getElementById('lightbox-progress');
+const lbProgressBar = document.getElementById('lightbox-progress-bar');
 const lbDate = document.getElementById('lightbox-date');
 const lbCamera = document.getElementById('lightbox-camera');
 const lbLocation = document.getElementById('lightbox-location');
 
 let current = 0;
+let currentObjectUrl = null;
+let currentAbort = null;
+
+// Streams the full-res original so the progress bar reflects actual bytes
+// downloaded (these originals can be tens of MB), instead of a generic spinner.
+async function loadFullRes(p, idx) {
+  if (currentAbort) currentAbort.abort();
+  const controller = new AbortController();
+  currentAbort = controller;
+
+  lbProgressBar.style.width = '0%';
+  lbProgressWrap.classList.add('active');
+
+  try {
+    const res = await fetch(p.src, { signal: controller.signal });
+    const total = Number(res.headers.get('content-length')) || 0;
+    const reader = res.body.getReader();
+    const chunks = [];
+    let received = 0;
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+      received += value.length;
+      if (total) lbProgressBar.style.width = `${Math.min(100, (received / total) * 100)}%`;
+    }
+
+    if (current !== idx) return; // navigated away before this finished
+
+    const url = URL.createObjectURL(new Blob(chunks));
+    if (currentObjectUrl) URL.revokeObjectURL(currentObjectUrl);
+    currentObjectUrl = url;
+    lbImg.src = url;
+  } catch (err) {
+    if (err.name === 'AbortError') return;
+    if (current === idx) lbImg.src = p.src; // streaming unsupported/failed — plain load fallback
+  } finally {
+    if (current === idx) {
+      lbProgressBar.style.width = '100%';
+      setTimeout(() => {
+        if (current === idx) lbProgressWrap.classList.remove('active');
+      }, 200);
+    }
+  }
+}
 
 function renderLightbox() {
-  const p = photos[current];
-  lbImg.src = p.src;
+  const idx = current;
+  const p = photos[idx];
+
+  // Show the already-cached thumbnail instantly, then swap to the full-res
+  // original once it's loaded — avoids flashing the previously-viewed photo
+  // while the new one downloads (plain <img> keeps showing its old src).
+  lbImg.src = p.thumb || p.src;
   lbImg.alt = p.file;
+  loadFullRes(p, idx);
+
   lbDate.textContent = p.date ? `${formatDate(p.date)}${p.time ? ` · ${formatTime(p.time)}` : ''}` : 'Date unknown';
   const camLine = formatCamera(p);
   lbCamera.textContent = camLine;

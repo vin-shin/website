@@ -47,7 +47,12 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
     <figure class="lightbox">
-      <img id="lightbox-img" src="" alt="" />
+      <div class="lightbox-image-wrap">
+        <img id="lightbox-img" src="" alt="" />
+        <div id="lightbox-progress" class="lightbox-progress">
+          <div id="lightbox-progress-bar" class="lightbox-progress-bar"></div>
+        </div>
+      </div>
       <figcaption class="lightbox-caption">
         <span id="lightbox-date" class="lightbox-date"></span>
         <span id="lightbox-camera" class="lightbox-camera"></span>
