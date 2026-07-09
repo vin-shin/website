@@ -242,6 +242,18 @@ const photos = [
     "aperture": 2.8
   },
   {
+    "file": "DSC02225.jpg",
+    "src": "photos/DSC02225.jpg",
+    "date": "2025-05-31",
+    "time": "15:02",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 28.6,
+    "aperture": 6.3
+  },
+  {
     "file": "DSC02179.jpg",
     "src": "photos/DSC02179.jpg",
     "date": "2025-05-31",
@@ -251,6 +263,30 @@ const photos = [
     "lon": null,
     "camera": "Sony ILCE-7M4",
     "focalLength": 70,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC02206.jpg",
+    "src": "photos/DSC02206.jpg",
+    "date": "2025-05-31",
+    "time": "14:58",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 57.1,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC02109.jpg",
+    "src": "photos/DSC02109.jpg",
+    "date": "2025-05-31",
+    "time": "14:49",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 50.4,
     "aperture": 2.8
   },
   {
