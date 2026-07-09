@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photos – Vin Shin</title>
+  <link rel="icon" type="image/png" href="./images/logotrue.png" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body class="photos-theme">
+
+  <div class="aurora" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+  </div>
+
+  <main class="project-page photos-page">
+    <a href="index.html" class="back-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Portfolio
+    </a>
+
+    <p class="panel-label">Photos</p>
+    <h1 class="proj-title" style="margin-bottom:0.6rem;">My Photos!</h1>
+    <p class="hero-sub" style="max-width:560px;margin-bottom:2rem;">
+      I really enjoy taking photos of pretty much anything. As of late, I've been taking a lot of photos for my SAE team. 
+    </p>
+
+    <div id="photo-grid" class="photo-grid"></div>
+    <div id="photo-empty" class="photo-empty" style="display:none;">
+      <p>No photos yet — check back soon.</p>
+    </div>
+  </main>
+
+  <div id="lightbox-overlay" class="lightbox-overlay">
+    <button type="button" id="lightbox-close" class="lightbox-close" aria-label="Close">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button type="button" id="lightbox-prev" class="lightbox-nav lightbox-prev" aria-label="Previous photo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button type="button" id="lightbox-next" class="lightbox-nav lightbox-next" aria-label="Next photo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <figure class="lightbox">
+      <img id="lightbox-img" src="" alt="" />
+      <figcaption class="lightbox-caption">
+        <span id="lightbox-date" class="lightbox-date"></span>
+        <span id="lightbox-camera" class="lightbox-camera"></span>
+        <span id="lightbox-location" class="lightbox-location"></span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <footer><p>© 2026 Vin Shin</p></footer>
+
+  <script src="photos-data.js"></script>
+  <script src="photos.js"></script>
+</body>
+</html>

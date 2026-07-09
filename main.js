@@ -1,25 +1,5 @@
 // projects array lives in projects-data.js (loaded before this script)
 
-// ── Hero name hover swap ──────────────────────────────────────────
-(function () {
-  const el = document.querySelector('.hero-name');
-  if (!el) return;
-  const original = 'Vin Shin';
-  const alternate = 'shin.vin';
-  let swapped = false;
-
-  function swap(to) {
-    el.style.opacity = '0';
-    setTimeout(() => {
-      el.textContent = to;
-      el.style.opacity = '1';
-    }, 250);
-  }
-
-  el.addEventListener('mouseenter', () => { if (!swapped) { swap(alternate); swapped = true; } });
-  el.addEventListener('mouseleave', () => { if (swapped)  { swap(original);  swapped = false; } });
-})();
-
 // ── Render project cards ──────────────────────────────────────────
 function buildThumb(p) {
   if (p.model) {
@@ -126,65 +106,6 @@ grid.querySelectorAll('model-viewer').forEach(mv => {
     if (!animId) animId = requestAnimationFrame(physTick);
   });
 });
-
-// ── Hero title animation: "Shin.Vin" → "Vin Shin" ────────────────
-function animateHeroTitle() {
-  const h1 = document.querySelector('.hero-name');
-  if (!h1) return;
-
-  h1.style.display = 'flex';
-  h1.style.position = 'relative';
-  h1.style.whiteSpace = 'nowrap';
-
-  // Render "Shin.Vin" and measure positions
-  h1.innerHTML = '<span>Shin</span><span style="margin:0 -0.04em">.</span><span>Vin</span>';
-  const [sEl, dEl, vEl] = h1.children;
-  const sR = sEl.getBoundingClientRect();
-  const dR = dEl.getBoundingClientRect();
-  const vR = vEl.getBoundingClientRect();
-  const h1R = h1.getBoundingClientRect();
-
-  // Switch to "Vin Shin" DOM and measure
-  h1.innerHTML = '<span class="ha">Vin</span><span class="hb" style="opacity:0">&nbsp;</span><span class="hc">Shin</span>';
-  const ha = h1.querySelector('.ha');
-  const hb = h1.querySelector('.hb');
-  const hc = h1.querySelector('.hc');
-  const aR = ha.getBoundingClientRect();
-  const cR = hc.getBoundingClientRect();
-
-  // Floating dot overlay at original measured position
-  const dot = document.createElement('span');
-  dot.textContent = '.';
-  dot.style.cssText = `position:absolute;left:${dR.left - h1R.left}px;top:0;pointer-events:none;`;
-  h1.appendChild(dot);
-
-  // Snap to "Shin.Vin" appearance via inverse transforms
-  ha.style.transform = `translateX(${vR.left - aR.left}px)`;
-  hc.style.transform = `translateX(${sR.left - cR.left}px)`;
-
-  // Animate after hero panel finishes revealing
-  setTimeout(() => {
-    const ease = 'cubic-bezier(0.4, 0, 0.2, 1)';
-    ha.style.transition = `transform 0.65s ${ease}`;
-    hc.style.transition = `transform 0.65s ${ease}`;
-    hb.style.transition = 'opacity 0.3s ease 0.4s';
-    dot.style.transition = 'opacity 0.3s ease';
-    ha.style.transform = '';
-    hc.style.transform = '';
-    hb.style.opacity = '1';
-    dot.style.opacity = '0';
-  }, 700);
-
-  // Cleanup — restore plain text
-  setTimeout(() => {
-    h1.textContent = 'Vin Shin';
-    h1.style.display = '';
-    h1.style.position = '';
-    h1.style.whiteSpace = '';
-  }, 1450);
-}
-
-animateHeroTitle();
 
 // ── Scroll reveal ─────────────────────────────────────────────────
 const revealObserver = new IntersectionObserver((entries) => {

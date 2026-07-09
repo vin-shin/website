@@ -1,0 +1,25 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "New website launched and all vibe-coded!",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:photos": "node scripts/build-photos.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vin-shin/website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vin-shin/website/issues"
+  },
+  "homepage": "https://github.com/vin-shin/website#readme",
+  "devDependencies": {
+    "exifr": "^7.1.3"
+  }
+}
