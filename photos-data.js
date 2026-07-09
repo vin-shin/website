@@ -86,18 +86,6 @@ const photos = [
     "aperture": 2.8
   },
   {
-    "file": "DSC02718.jpg",
-    "src": "photos/DSC02718.jpg",
-    "date": null,
-    "time": null,
-    "location": null,
-    "lat": null,
-    "lon": null,
-    "camera": null,
-    "focalLength": null,
-    "aperture": null
-  },
-  {
     "file": "DSC02941.jpg",
     "src": "photos/DSC02941.jpg",
     "date": "2025-06-18",
@@ -131,6 +119,18 @@ const photos = [
     "lon": null,
     "camera": "Sony ILCE-7M4",
     "focalLength": 49.5,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC02718.jpg",
+    "src": "photos/DSC02718.jpg",
+    "date": "2025-05-31",
+    "time": "16:53",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 70,
     "aperture": 2.8
   },
   {
