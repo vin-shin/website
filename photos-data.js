@@ -2,6 +2,71 @@
 // Run `npm run build:photos` after adding/removing files in photos/.
 const photos = [
   {
+    "file": "DSC08021.jpg",
+    "src": "photos/DSC08021.jpg",
+    "thumb": "photos/thumbs/DSC08021.jpg",
+    "date": "2026-10-24",
+    "time": "21:09",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 70,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC07996.jpg",
+    "src": "photos/DSC07996.jpg",
+    "thumb": "photos/thumbs/DSC07996.jpg",
+    "date": "2026-10-24",
+    "time": "20:16",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 70,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC07986.jpg",
+    "src": "photos/DSC07986.jpg",
+    "thumb": "photos/thumbs/DSC07986.jpg",
+    "date": "2026-10-24",
+    "time": "20:13",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 70,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC07979-2.jpg",
+    "src": "photos/DSC07979-2.jpg",
+    "thumb": "photos/thumbs/DSC07979-2.jpg",
+    "date": "2026-10-24",
+    "time": "20:05",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 70,
+    "aperture": 2.8
+  },
+  {
+    "file": "DSC07093.jpg",
+    "src": "photos/DSC07093.jpg",
+    "thumb": "photos/thumbs/DSC07093.jpg",
+    "date": "2026-09-18",
+    "time": "14:25",
+    "location": null,
+    "lat": null,
+    "lon": null,
+    "camera": "Sony ILCE-7M4",
+    "focalLength": 70,
+    "aperture": 2.8
+  },
+  {
     "file": "GR26_3.png",
     "src": "photos/GR26_3.png",
     "thumb": "photos/thumbs/GR26_3.jpg",
