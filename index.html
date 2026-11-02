@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <style>html { background: #120e18; }</style>
   <title>Vin Shin – Electrical Engineer</title>
   <link rel="icon" type="image/png" href="./images/logotrue.png" />
   <link rel="stylesheet" href="style.css" />
@@ -17,8 +19,50 @@
       document.head.appendChild(s);
     });
   </script>
+  <script>
+    // Play the signature intro on fresh loads and reloads, but not when coming back from another page on the site
+    (() => {
+      const nav = performance.getEntriesByType('navigation')[0];
+      const fromSite = document.referrer && new URL(document.referrer).origin === location.origin;
+      const skip = matchMedia('(prefers-reduced-motion: reduce)').matches
+        || (nav && nav.type === 'back_forward')
+        || (nav && nav.type === 'navigate' && fromSite);
+      if (skip) return;
+      document.documentElement.classList.add('intro-active');
+
+      // Start at the top and block scrolling until the intro hands off (main.js calls __unlockScroll).
+      // Blocks the input instead of hiding the scrollbar, so the layout never shifts.
+      history.scrollRestoration = 'manual';
+      const top = () => scrollTo({ top: 0, behavior: 'instant' }); // instant: the site uses smooth scrolling
+      top();
+      const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
+      const block = e => { if (e.type !== 'keydown' || keys.includes(e.key)) e.preventDefault(); };
+      const opts = { passive: false };
+      // the browser can still restore the old position after load; snap back if anything moves the page
+      const pin = () => { if (scrollY !== 0) top(); };
+      ['wheel', 'touchmove', 'keydown'].forEach(t => addEventListener(t, block, opts));
+      addEventListener('scroll', pin);
+      window.__unlockScroll = () => {
+        ['wheel', 'touchmove', 'keydown'].forEach(t => removeEventListener(t, block, opts));
+        removeEventListener('scroll', pin);
+        history.scrollRestoration = 'auto';
+      };
+    })();
+  </script>
 </head>
 <body>
+
+  <!-- Signature intro: draws the logo, fades out, then the cards reveal -->
+  <div class="intro" aria-hidden="true">
+    <div class="intro-mark">
+      <!-- glow: a lilac copy of the stroke, blurred by the browser -->
+      <svg class="intro-glow" viewBox="-60 -60 1120 1134">
+        <defs><path id="sig" d="M 872 132 C 720 232 445 615 105 935 C 205 770 315 520 333 360 C 352 230 352 92 235 50 C 125 12 28 100 48 215 C 66 338 200 402 330 430 C 620 470 990 600 978 790 C 968 928 805 968 710 965 C 575 958 525 830 562 755 C 595 685 650 666 688 668" /></defs>
+        <use href="#sig" />
+      </svg>
+      <svg class="intro-ink" viewBox="-60 -60 1120 1134"><use href="#sig" /></svg>
+    </div>
+  </div>
 
   <!-- Aurora background -->
   <div class="aurora" aria-hidden="true">
@@ -26,6 +70,7 @@
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
     <div class="blob blob-4"></div>
+    <div class="blob blob-5"></div>
   </div>
 
   <!-- Bento grid -->
@@ -171,7 +216,7 @@
     </div>
 
     <!-- Projects -->
-    <div class="panel panel-projects" id="projects-panel">
+    <div class="panel panel-projects reveal" id="projects-panel">
       <p class="panel-label reveal">Projects</p>
       <div class="projects-grid" id="projects-grid"></div>
     </div>
@@ -207,6 +252,7 @@
 
   <footer><p>© 2026 Vin Shin</p></footer>
 
+  <script src="aurora.js"></script>
   <script src="projects-data.js"></script>
   <script src="main.js"></script>
 </body>

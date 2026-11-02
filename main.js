@@ -113,9 +113,68 @@ const revealObserver = new IntersectionObserver((entries) => {
     .filter(e => e.isIntersecting)
     .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
   intersecting.forEach((entry, i) => {
-    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    setTimeout(() => {
+      entry.target.classList.add('visible');
+      setTimeout(() => entry.target.classList.add('settled'), 750);
+    }, i * 90);
     revealObserver.unobserve(entry.target);
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+function startReveal() {
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}
+
+// ── Signature intro ───────────────────────────────────────────────
+// Draw the logo, fade it out, then let the cards reveal. Click or any key skips.
+const intro = document.querySelector('.intro');
+if (document.documentElement.classList.contains('intro-active') && intro) {
+  // Gather the aurora blobs behind the logo so they act as its glow.
+  // `translate`/`scale` stack on top of each blob's own drift animation (which uses `transform`).
+  const blobs = [...document.querySelectorAll('.aurora .blob')];
+  const cx = innerWidth / 2, cy = innerHeight / 2;
+  blobs.forEach(b => {
+    const r = b.getBoundingClientRect();
+    b.style.translate = `${cx - (r.left + r.width / 2)}px ${cy - (r.top + r.height / 2)}px`;
+    b.style.scale = '0.6';
+  });
+  document.documentElement.classList.add('intro-gather');
+  // bloom in as the signature finishes drawing
+  const bloom = setTimeout(() => document.documentElement.classList.add('intro-bloom'), 600);
+
+  const explode = () => {
+    document.documentElement.classList.add('intro-bloom');
+    blobs.forEach(b => {
+      b.style.transition = 'translate 1.8s cubic-bezier(.16, 1, .3, 1), scale 1.8s cubic-bezier(.16, 1, .3, 1), opacity 0.4s ease';
+      b.style.translate = '0px 0px';
+      b.style.scale = '1';
+    });
+    setTimeout(() => {
+      document.documentElement.classList.remove('intro-gather', 'intro-bloom');
+      blobs.forEach(b => { b.style.transition = ''; b.style.translate = ''; b.style.scale = ''; });
+    }, 1900);
+  };
+
+  let done = false;
+  const finish = () => {
+    if (done) return;
+    done = true;
+    clearTimeout(timer);
+    clearTimeout(bloom);
+    intro.classList.add('leaving');
+    explode();
+    // let the logo get mostly out of the way before the cards start coming in
+    setTimeout(startReveal, 320);
+    setTimeout(() => {
+      document.documentElement.classList.remove('intro-active');
+      intro.remove();
+      window.__unlockScroll?.();
+    }, 500);
+  };
+  const timer = setTimeout(finish, 1750); // 0.15s delay + 1.25s draw + short hold with the glow
+  intro.addEventListener('click', finish);
+  addEventListener('keydown', finish, { once: true });
+} else {
+  intro?.remove();
+  startReveal();
+}
