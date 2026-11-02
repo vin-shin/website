@@ -32,9 +32,18 @@
     depth: rand(0.4, 1), // how strongly it's drawn to the cursor
   }));
 
-  let cx = null, cy = null;
-  addEventListener('pointermove', e => { cx = e.clientX; cy = e.clientY; }, { passive: true });
-  document.documentElement.addEventListener('mouseleave', () => { cx = cy = null; });
+  // cursor position plus a smoothed velocity, so moving the mouse can stir nearby blobs
+  let cx = null, cy = null, mvx = 0, mvy = 0, lastMove = null;
+  addEventListener('pointermove', e => {
+    const now = performance.now();
+    if (cx !== null && lastMove !== null) {
+      const dtm = Math.max(8, now - lastMove) / 1000;
+      mvx += ((e.clientX - cx) / dtm - mvx) * 0.3;
+      mvy += ((e.clientY - cy) / dtm - mvy) * 0.3;
+    }
+    cx = e.clientX; cy = e.clientY; lastMove = now;
+  }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', () => { cx = cy = null; mvx = mvy = 0; });
 
   // While the homepage intro has the blobs gathered behind the logo, hold them at home,
   // then ease into full motion as they burst outward
@@ -77,6 +86,10 @@
       p.vy += (to.y - p.y) * 1.6;
     }
 
+    // the stir fades out once the mouse stops moving
+    const still = Math.exp(-6 * dt);
+    mvx *= still; mvy *= still;
+
     if (live) {
       const forces = state.map(() => ({ x: 0, y: 0 }));
       state.forEach((p, i) => {
@@ -102,12 +115,16 @@
           forces[j].x -= ux * k; forces[j].y -= uy * k;
         }
 
-        // drawn toward the cursor when it's nearby
         if (cx !== null) {
           const dx = cx - p.x, dy = cy - p.y;
           const d = Math.hypot(dx, dy);
-          const pull = Math.max(0, 1 - d / 650) * 2.2 * p.depth;
+          // faintly drawn toward the cursor when it's nearby
+          const pull = Math.max(0, 1 - d / 650) * 1.1 * p.depth;
           f.x += dx * pull; f.y += dy * pull;
+          // stir: moving the mouse drags nearby blobs along in the same direction
+          const reach = Math.max(0, 1 - d / 520);
+          const stir = reach * reach * 2.4 * p.depth;
+          f.x += mvx * stir; f.y += mvy * stir;
         }
 
         // soft walls so nothing leaves the screen for long
