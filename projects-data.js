@@ -37,11 +37,52 @@ const projects = [
     summary: 'Second-generation Mako — a rebuilt, higher-power evolution of Mako Shortfin running a 12S bus at 25 A peak.',
     description: 'The upgraded successor to Mako Shortfin — same core FOC architecture, rebuilt to push a lot more power. Longfin takes everything learned from the Shortfin bring-up and scales it up to a 12S bus at 25 A peak: a beefed-up power delivery network, expanded discrete power stages, and a reworked control board that still runs the whole thing off a single STM32.',
     bullets: [
-      'Triple discrete power stage with per-phase current sensing on each channel; single STM32 runs three synchronized 30 kHz FOC loops with independent d-q current controllers',
+      'Triple discrete power stage with two-phase current sensing per motor; single STM32 runs three synchronized 30 kHz FOC loops with independent d-q current controllers',
       '4-layer mixed-signal PCB with expanded power delivery network supporting 3× the phase current paths of Mako Shortfin while maintaining isolated analog and digital returns',
       'Cascaded bus-to-12V-to-5V-to-3.3V power conversion retained from Shortfin; 5V rail exposed externally for three independent encoder sensor interfaces',
     ],
     tags: ['STM32', 'FOC', 'Power Electronics', 'Altium Designer', '4-Layer PCB', 'Multi-Motor'],
+    videos: [
+      { src: './images/videos/longfin-torque.mp4', poster: './images/videos/longfin-torque.jpg', title: 'Current / Torque Control' },
+      { src: './images/videos/longfin-torque-load.mp4', poster: './images/videos/longfin-torque-load.jpg', title: 'Torque Control Under Load' },
+      { src: './images/videos/longfin-velocity.mp4', poster: './images/videos/longfin-velocity.jpg', title: 'Velocity Control' },
+    ],
+    deepDive: {
+      specs: [
+        ['Bus', '60 V (12S), 25 A peak per motor'],
+        ['Motors', '3, one STM32G474 controlling all of them'],
+        ['Board', '97.0 × 62.0 mm, 4 layers'],
+        ['Parts', '253 placed (149 top / 104 bottom), 187 nets'],
+        ['Power devices', '18× Infineon OptiMOS 7, 100 V / 2.1 mΩ'],
+        ['Application', 'Project Dari: knee and hip (flexion + abduction) joints'],
+      ],
+      schematic: {
+        intro: 'Longfin is laid out hierarchically: one power-stage sheet is reused three times (PS1–PS3), one per motor, so every channel is electrically identical and a fix to one is a fix to all. The master sheet holds the bus, the MCU and the I/O; power conversion and the debugger live on their own sheets.',
+        blocks: [
+          { title: 'Power stage ×3', body: 'Each stage is a full three-phase bridge: six IAUCN10S7N021 MOSFETs driven by three TI UCC21330B isolated dual-channel gate drivers (3 kVrms, 4 A / 6 A). The high side is bootstrapped through a 200 V Schottky into a 1 µF cap, and turn-on and turn-off go through separate gate resistors so switching edges can be tuned independently.', parts: 'IAUCN10S7N021 ×18 · UCC21330B ×9 · SMD1200PL ×9' },
+          { title: 'Current sensing', body: 'Two Crocus CT4022 40 A TMR current sensors per motor (six total) sit inline with phases U and W; the third phase current is reconstructed in firmware from Kirchhoff’s current law, saving a sensor per channel.', parts: 'CT4022-A40 ×6' },
+          { title: 'DC bus', body: 'Every stage gets its own local bank: six 10 µF / 75 V X7R 1210 MLCCs (90 µF of ceramic per motor) for high-frequency ripple, backed by three KEMET A759 220 µF polymer capacitors for bulk energy.', parts: '10 µF 75 V ×18 · A759 220 µF ×9' },
+          { title: 'Control & I/O', body: 'A single STM32G474RET6 runs all three motors. Each motor has its own 6-pin JST XH encoder port on a dedicated SPI bus (SPI1–3); CAN goes through a TI TCAN1044A automotive transceiver; a dual op-amp buffers the bus-voltage and gate-driver-supply sense lines, and NC7WZ04 TinyLogic inverters condition the gate-drive logic.', parts: 'STM32G474RET6 · TCAN1044A · NC7WZ04 ×5' },
+          { title: 'Power tree', body: 'Bus → 12 V with a TI LMR51625 60 V synchronous buck, 12 V → 5 V with a TPS563203, and 5 V → 3.3 V with a TPS78233 LDO. The analog 3.3 V rail (3V3A) is filtered separately from the digital rail to keep the current-sense and ADC references quiet.', parts: 'LMR51625 · TPS563203 · TPS78233' },
+          { title: 'Integrated ST-LINK', body: 'An on-board ST-LINK/V2.1 (STM32F103 + 8 MHz crystal) behind a fused, ESD-protected USB-C port means the board can be flashed and debugged with just a cable — no external probe.', parts: 'STM32F103C8T6 · USB-C · 1 A fuse' },
+        ],
+      },
+      layout: {
+        boards: './images/boards/mako-longfin/',
+        intro: 'The board is organized as three power-stage columns, each with its bus capacitors placed tight to its own bridge, so every motor has a short, low-inductance commutation loop. Control and debug circuitry sits away from the switching nodes.',
+        stackup: [
+          ['Top', 'Signal + power', '1 oz'],
+          ['Inner 1', 'Plane', '½ oz'],
+          ['Inner 2', 'Plane', '½ oz'],
+          ['Bottom', 'Signal + power', '1 oz'],
+        ],
+        blocks: [
+          { title: 'Bus distribution', body: 'The DC bus is carried in wide copper pours on both outer layers, broken into one region per power stage so each bridge pulls current from its own capacitors instead of across the board.' },
+          { title: 'Double-sided placement', body: 'About 40% of the parts (104 of 253) are on the bottom side, which keeps the 97 × 62 mm board compact despite tripling the power stage relative to Shortfin.' },
+          { title: 'Planes under every outer layer', body: 'Each outer layer sits directly over an inner plane, so signal and switching loops close through a return path right underneath them, which keeps loop inductance and radiated noise down.' },
+        ],
+      },
+    },
     icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>`,
   },
   {
@@ -54,13 +95,51 @@ const projects = [
     thumb: './images/img%20thumbs/shortfin.png',
     gradient: 'linear-gradient(135deg, #eef36a 0%, #6b2d18 100%)',
     summary: 'Full bring-up of a 12S FOC inverter — 30 kHz switching, 25 A peak AC, closed-loop current + velocity control.',
-    description: 'Designed and brought up a Field-Oriented Control inverter for BLDC motors: 30 kHz switching at 25 A peak AC current from a 12S DC bus using Infineon OptiMOS MOSFETs and UCC27211A half-bridge gate drivers.',
+    description: 'Designed and brought up a Field-Oriented Control inverter for BLDC motors: 30 kHz switching at 25 A peak AC current from a 12S DC bus using Infineon OptiMOS MOSFETs and UCC27302A half-bridge gate drivers.',
     bullets: [
-      '4-layer mixed-signal PCB with 2 oz inner-layer copper, cascaded buck-converter bias rails, and isolated analog/digital returns for low-noise current sensing',
+      '4-layer mixed-signal PCB with cascaded buck-converter bias rails, and isolated analog/digital returns for low-noise current sensing',
       'STM32G474 firmware implementing synchronized 3-phase inline current sampling and A1333 SPI magnetic encoder feedback in a 30 kHz FOC loop',
       'Achieved closed-loop current and velocity control with real-time commutation and field weakening',
     ],
     tags: ['STM32G474', 'FOC', 'Power Electronics', 'Altium Designer', 'C/C++', '4-Layer PCB', 'Gate Drivers'],
+    videos: [
+      { src: './images/videos/shortfin-openloop.mp4', poster: './images/videos/shortfin-openloop.jpg', title: 'Open-Loop Spin Test', portrait: true },
+    ],
+    deepDive: {
+      specs: [
+        ['Bus', '60 V (12S), 25 A peak AC'],
+        ['Design goal', '3–5 kW capability for under $100 in parts'],
+        ['Board', '55.9 × 62.2 mm, 4 layers'],
+        ['Parts', '96 placed (55 top / 41 bottom), 72 nets'],
+        ['Power devices', '6× Infineon OptiMOS 7, 100 V / 2.1 mΩ'],
+        ['Fab', 'JLCPCB, two board revisions'],
+      ],
+      schematic: {
+        intro: 'Shortfin was my first power stage. The design is split into one sheet per phase (U, V, W), a power-supply sheet, and a master sheet that ties together the bus, MCU and connectors. Each phase sheet exposes the same interface: high- and low-side PWM, stage enable, current-sense output, and the switch node.',
+        blocks: [
+          { title: 'Power stage (per phase)', body: 'Two Infineon IAUCN10S7N021 OptiMOS 7 MOSFETs (100 V, 2.1 mΩ) in a half bridge, driven by a TI UCC27302A 120 V / 4.5 A half-bridge driver with built-in interlock so both FETs can’t conduct at once. The high side is bootstrapped from a 470 nF cap, with 5 Ω gate resistors to tame the switching edges.', parts: 'IAUCN10S7N021 ×6 · UCC27302A ×3' },
+          { title: 'Current sensing', body: 'An Allegro ACS72981 ±100 A Hall-effect sensor sits inline with every phase, so all three phase currents are measured directly and the sensor is galvanically separate from the power path.', parts: 'ACS72981 ×3' },
+          { title: 'DC bus', body: 'Six 10 µF / 75 V X7R 1210 ceramics handle switching ripple right at the bridges, backed by three Panasonic 180 µF / 63 V hybrid-polymer capacitors for bulk energy. A resistive divider feeds bus voltage into the MCU’s analog front end.', parts: '10 µF 75 V ×6 · EEHZS1J181UP ×3' },
+          { title: 'Control & I/O', body: 'An STM32G474RET6 runs the FOC loop. A 6-pin connector carries SPI to a separate A1333 magnetic encoder board; three on-board temperature sensors (T1–T3) watch the power stage; and CAN goes through a TI ISO1042 isolated transceiver with its own isolated 5 V domain, so a ground fault on the CAN bus can’t reach the motor side.', parts: 'STM32G474RET6 · ISO1042 · A1333 (encoder board)' },
+          { title: 'Power tree', body: 'A cascade sized with TI WEBENCH: bus → 12 V with an LMR51625 60 V synchronous buck, 12 V → 5 V with a TPS563203 (3 A), then 5 V → 3.3 V through a TPS782 LDO for a clean logic rail.', parts: 'LMR51625 · TPS563203 · TPS782' },
+        ],
+      },
+      layout: {
+        boards: './images/boards/mako/',
+        intro: 'The three half bridges sit side by side with their bus capacitors packed right next to the FETs, keeping each high-current commutation loop as small as possible. The MCU and sensing circuitry are placed away from the switch nodes.',
+        stackup: [
+          ['Top', 'Signal + power', '1 oz'],
+          ['Inner 1', 'Plane', '1 oz'],
+          ['Inner 2', 'Plane', '1 oz'],
+          ['Bottom', 'Signal + power', '1 oz'],
+        ],
+        blocks: [
+          { title: 'Planes under every outer layer', body: 'The two inner layers are planes directly beneath the outer layers, so the switching loops and MCU signals on top and bottom have a short, low-inductance return path right underneath them.' },
+          { title: 'Dedicated pours', body: 'Bus-capacitor pours are repeated on top, bottom and inner layers, giving the bus a low-impedance path from capacitors to bridges. Separate pours bring 3.3 V to the inner layers.' },
+          { title: 'Compact, double-sided', body: '41 of the 96 parts are on the bottom side, which fits the whole three-phase inverter on a 55.9 × 62.2 mm board.' },
+        ],
+      },
+    },
     icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>`,
   },
   {
@@ -72,13 +151,52 @@ const projects = [
     model: './images/3dmodels/BMS-v1.glb',
     thumb: './images/img%20thumbs/bms.png',
     gradient: 'linear-gradient(135deg, #eef36a 0%, #80a1d4 100%)',
-    summary: 'Segment-level BMS PCB using NXP MC33771C AFE for GR26\'s 144S2P 588V pack — 39% board area reduction vs GR25.',
+    summary: 'Segment-level BMS PCB using NXP MC33771C AFE for GR26\'s 140S2P 588V pack — 39% board area reduction vs GR25.',
     description: 'Designed schematic and 4-layer PCB for GR26 segment-level BMS modules using NXP MC33771C AFE. The tractive system runs a 2p140s (588V) configuration requiring 10 modules daisy-chained via capacitive-isolation TPL — achieved 39% board area reduction vs GR25 with deliberate clearance and isolation gap choices for high-voltage reliability.',
     bullets: [
       'STM32G474RE thermistor acquisition for 14 temperature points per segment with 10-sample moving-average filter achieving <0.5°C noise floor',
       'TPL daisy-chain across all 10 modules with capacitive isolation; layout clearances and isolation gaps sized for 588V tractive system reliability per FSAE EV rules',
     ],
     tags: ['STM32G474', 'NXP MC33771C', 'BMS', 'TPL', 'Altium Designer', '4-Layer PCB'],
+    photos: [
+      { src: './images/projects/bms-1.jpg', alt: 'GR26 BMS board mounted on an accumulator segment' },
+      { src: './images/projects/bms-2.jpg', alt: 'GR26 BMS boards installed across the accumulator segments' },
+    ],
+    deepDive: {
+      specs: [
+        ['Pack', '140S2P, 588 V across 10 segments'],
+        ['Per board', '14 cells, 14 thermistors'],
+        ['Board', '88.8 × 60.5 mm, 4 layers, ~1.6 mm thick'],
+        ['Parts', '247 placed (200 top / 47 bottom), 139 nets'],
+        ['AFE', 'NXP MC33771'],
+        ['MCU', 'STM32G474RET6 for temperature acquisition'],
+      ],
+      schematic: {
+        intro: 'The BMS board is split into three sheets: the battery-cell AFE, the cell interface with its filtering and balancing network, and the STM32 that handles thermistor acquisition. Everything on the cell side is rated and protected for the voltage of a 14-cell segment, with clamping for hot-plugging the cell connector.',
+        blocks: [
+          { title: 'Cell interface', body: 'All 15 cell taps (C0–C14) come in on one 2.54 mm header. Each cell-sense line (CT_1–CT_14) goes through an RC low-pass filter (series resistors with 10 nF / 47 nF / 100 nF capacitors), following NXP’s recommended network, so switching noise from the pack doesn’t corrupt cell voltage readings.', parts: 'TSW-115 15-pin header · 3 kΩ / 2 kΩ filters' },
+          { title: 'Passive balancing', body: 'Every cell has a balancing channel (CB_1–CB_14) that bleeds charge through a 56 Ω, 1 W 2512 resistor. At a full 4.2 V cell that’s about 75 mA of balancing current per cell.', parts: '56 Ω 2512 ×14' },
+          { title: 'AFE', body: 'An NXP MC33771 14-cell battery-cell controller measures every cell voltage and drives the balancing switches. Its supply and cell inputs are decoupled with 100 V-rated capacitors and protected by TVS diodes plus a ladder of Zener clamps (8.2 V, 20 V, 27 V, 43 V) against hot-plug transients.', parts: 'MC33771 · TVS ×7 · Zener clamps' },
+          { title: 'TPL daisy chain', body: 'Boards talk to each other over NXP’s TPL differential link, in and out on JST XH 3-pin connectors. Each link is capacitively isolated with 10 nF 100 V capacitors and terminated with 62 Ω resistors, so all 10 segment boards can sit at different pack potentials on one chain.', parts: 'JST XH 3-pin ×4 · 10 nF 100 V · 62 Ω' },
+          { title: 'Thermistor acquisition', body: 'An STM32G474RET6 reads 14 thermistors (T1–T14), each with its own divider and RC filter into an ADC channel. A P-channel MOSFET switches the thermistor bias, the ADC’s VDDA and VREF are filtered through their own inductors, and a TPS78233 LDO makes 3.3 V from 5 V.', parts: 'STM32G474RET6 · TPS78233 · 10 kΩ / 47 kΩ dividers' },
+        ],
+      },
+      layout: {
+        boards: './images/boards/bms/',
+        intro: 'Cell taps and the filtering and balancing network, the MC33771, and the STM32 with its thermistor inputs each get their own region of the board, so high-voltage cell routing stays out of the low-voltage MCU section.',
+        stackup: [
+          ['Top', 'Signal + GND pour', '1 oz'],
+          ['Inner 1', 'GND', '½ oz'],
+          ['Inner 2', 'GND', '½ oz'],
+          ['Bottom', 'Signal + GND pour', '1 oz'],
+        ],
+        blocks: [
+          { title: 'Ground on every layer', body: 'All four layers carry a ground pour, giving the sensitive cell-measurement and TPL lines a solid reference and shielding them from neighboring segment boards.' },
+          { title: 'Mostly single-sided', body: '200 of the 247 parts are on the top side, which keeps assembly simple across ten identical boards.' },
+          { title: '39% smaller than GR25', body: 'Moving to the MC33771 and tightening placement shrank the board by 39% compared with the GR25 BMS, while keeping a 10 mil board-wide clearance and spacing the cell-stack nets apart from the low-voltage MCU section.' },
+        ],
+      },
+    },
     icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>`,
   },
   {

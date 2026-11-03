@@ -751,6 +751,129 @@ main.bento {
   top: 0.3em;
 }
 .proj-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+
+/* ── Project deep dive ─────────────────────────────────────────── */
+.dd-specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.1rem 1.5rem;
+}
+.dd-specs dt { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.15rem; }
+.dd-specs dd { font-family: var(--serif); font-size: 1.15rem; line-height: 1.3; color: var(--bone); }
+
+.dd-blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.85rem;
+  margin-top: 1.4rem;
+}
+.dd-block {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(var(--bone-rgb), 0.025);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dd-title { font-family: var(--serif); font-weight: 400; font-size: 1.25rem; color: var(--bone); line-height: 1.2; }
+.dd-body { color: var(--text-muted); font-size: 0.88rem; line-height: 1.65; flex: 1; }
+.dd-parts { font-size: 0.74rem; color: var(--blue); line-height: 1.5; }
+
+.dd-videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.85rem;
+}
+.dd-video video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  border-radius: 12px;
+  background: #000;
+  object-fit: cover;
+}
+.dd-video.portrait { max-width: 300px; }
+.dd-video.portrait video { aspect-ratio: 9 / 16; }
+.dd-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.85rem;
+}
+.dd-photos img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+.dd-photos a:hover img { transform: scale(1.02); }
+.dd-video figcaption { margin-top: 0.5rem; font-family: var(--serif); font-size: 1.1rem; color: var(--bone); }
+
+/* board viewer: rendered from Gerbers */
+.dd-board { margin-top: 1.4rem; }
+.dd-board-tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.8rem; }
+.dd-board-tabs button {
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition);
+}
+.dd-board-tabs button:hover { color: var(--bone); }
+.dd-board-tabs button[aria-selected="true"] { color: var(--peach); border-color: rgba(var(--peach-rgb), 0.5); }
+.dd-board-view {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(var(--bg-rgb), 0.55);
+  padding: 1.25rem;
+  display: flex;
+  justify-content: center;
+}
+.dd-board-view img { display: block; max-width: 100%; max-height: 560px; height: auto; }
+.dd-board-note { margin-top: 0.5rem; font-size: 0.74rem; color: var(--text-muted); }
+
+/* layer stackup: copper bars get thicker for heavier copper */
+.dd-stack {
+  margin-top: 1.4rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  max-width: 560px;
+}
+.dd-layer {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr 8.5rem 2.5rem;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 0.8rem;
+}
+.dd-layer-name { color: var(--bone); }
+.dd-layer[data-view] { cursor: pointer; border-radius: 6px; margin: 0 -0.4rem; padding: 0.15rem 0.4rem; transition: background var(--transition); }
+.dd-layer[data-view]:hover, .dd-layer.active { background: rgba(var(--peach-rgb), 0.07); }
+.dd-layer.active .dd-layer-name { color: var(--peach); }
+.dd-layer-bar { height: 6px; border-radius: 3px; background: linear-gradient(90deg, #c9874a, #e8b07a); }
+.dd-layer.heavy .dd-layer-bar { height: 11px; }
+.dd-layer.light .dd-layer-bar { height: 3px; }
+.dd-layer-role { color: var(--text-muted); }
+.dd-layer-cu { color: var(--peach); text-align: right; }
+.dd-diel {
+  height: 14px;
+  margin: 0.2rem 0 0.2rem 5.4rem;
+  width: calc(100% - 5.4rem - 12.2rem);
+  border-radius: 2px;
+  background: rgba(var(--blue-rgb), 0.12);
+}
+@media (max-width: 480px) {
+  .dd-layer { grid-template-columns: 3.8rem 1fr 2.4rem; }
+  .dd-layer-role { display: none; }
+  .dd-diel { margin-left: 4.7rem; width: calc(100% - 4.7rem - 3.3rem); }
+}
 .proj-not-found { padding: 3rem 0; color: var(--text-muted); }
 
 a.project-card { text-decoration: none; color: inherit; }
