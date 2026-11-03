@@ -23,10 +23,15 @@
     // Play the signature intro on fresh loads and reloads, but not when coming back from another page on the site
     (() => {
       const nav = performance.getEntriesByType('navigation')[0];
+      // Remember per tab that the intro already played: the referrer check alone misses local file:// browsing
+      // and sites with strict referrer policies, so coming back from a project page would replay it
+      let seen = false;
+      try { seen = sessionStorage.getItem('introSeen') === '1'; sessionStorage.setItem('introSeen', '1'); } catch (e) {}
       const fromSite = document.referrer && new URL(document.referrer).origin === location.origin;
+      const reload = nav && nav.type === 'reload';
       const skip = matchMedia('(prefers-reduced-motion: reduce)').matches
         || (nav && nav.type === 'back_forward')
-        || (nav && nav.type === 'navigate' && fromSite);
+        || (!reload && (seen || fromSite));
       if (skip) return;
       document.documentElement.classList.add('intro-active');
 
