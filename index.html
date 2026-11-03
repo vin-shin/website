@@ -94,14 +94,23 @@
 
     <!-- Photo -->
     <div class="panel panel-photo reveal">
+      <!-- Cycles through photos (main.js). Only the first loads up front; the rest load after the page does. -->
       <div class="photo-frame">
         <img
-          src="./images/profile.jpg"
+          class="active"
+          src="./images/portraits/me-1.jpg"
           alt="Vin Shin"
           fetchpriority="high"
+          style="object-position: 50% 25%;"
           onload="this.classList.add('loaded')"
           onerror="this.remove()"
         />
+        <img data-src="./images/portraits/me-4.jpg" alt="" aria-hidden="true" style="object-position: 50% 45%;" />
+        <img data-src="./images/portraits/me-2.jpg" alt="" aria-hidden="true" style="object-position: 50% 22%;" />
+        <img data-src="./images/portraits/me-6.jpg" alt="" aria-hidden="true" style="object-position: 50% 15%;" />
+        <img data-src="./images/portraits/me-3.jpg" alt="" aria-hidden="true" style="object-position: 50% 18%;" />
+        <img data-src="./images/portraits/me-7.jpg" alt="" aria-hidden="true" style="object-position: 50% 45%;" />
+        <img data-src="./images/portraits/me-5.jpg" alt="" aria-hidden="true" style="object-position: 50% 20%;" />
       </div>
     </div>
 

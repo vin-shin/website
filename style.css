@@ -254,6 +254,9 @@ main.bento {
   width: 100%;
   height: 100%;
   min-height: 280px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  cursor: pointer;
 }
 .photo-frame img {
   position: absolute;
@@ -264,10 +267,15 @@ main.bento {
   object-position: center top;
   display: block;
   opacity: 0;
-  transition: opacity 0.4s ease;
-  border-radius: var(--radius);
+  /* waiting photos sit just off the right edge; no transition, so they reset there instantly */
+  transform: translateX(100%);
 }
 .photo-frame img.loaded { opacity: 1; }
+/* the showing photo slides in from the right while the previous one slides out to the left */
+.photo-frame img.active,
+.photo-frame img.leaving { transition: transform 0.8s cubic-bezier(.65, 0, .35, 1), opacity 0.4s ease; }
+.photo-frame img.active  { transform: none; }
+.photo-frame img.leaving { transform: translateX(-100%); }
 .photo-placeholder {
   position: absolute;
   inset: 0;

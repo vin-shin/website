@@ -125,6 +125,44 @@ function startReveal() {
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 }
 
+// ── Photo card slideshow ──────────────────────────────────────────
+// Slides through photos of me every few seconds; clicking the card skips ahead.
+const photoFrame = document.querySelector('.photo-frame');
+if (photoFrame) {
+  const photos = [...photoFrame.querySelectorAll('img')];
+  let current = 0, cycle = null;
+
+  // load the rest only after the page has loaded, so they don't compete with it
+  addEventListener('load', () => photos.forEach(img => {
+    if (!img.dataset.src) return;
+    img.onload = () => img.classList.add('loaded');
+    img.src = img.dataset.src;
+  }));
+
+  const show = i => {
+    const prev = photos[current];
+    photos.forEach(p => p.classList.remove('leaving')); // anything mid-exit snaps back to the right
+    prev.classList.remove('active');
+    prev.classList.add('leaving');
+    current = i;
+    void photos[current].offsetWidth; // make sure it starts from the right edge before sliding in
+    photos[current].classList.add('active');
+    // once it's off screen, send the old one back to the right edge (instantly, no transition)
+    setTimeout(() => { if (prev !== photos[current]) prev.classList.remove('leaving'); }, 850);
+  };
+  const next = () => {
+    // skip photos that haven't finished loading yet
+    for (let k = 1; k < photos.length; k++) {
+      const i = (current + k) % photos.length;
+      if (photos[i].classList.contains('loaded')) return show(i);
+    }
+  };
+  const start = () => { clearInterval(cycle); cycle = setInterval(next, 5000); };
+  photoFrame.addEventListener('click', () => { next(); start(); });
+  document.addEventListener('visibilitychange', () => (document.hidden ? clearInterval(cycle) : start()));
+  start();
+}
+
 // ── Signature intro ───────────────────────────────────────────────
 // Draw the logo, fade it out, then let the cards reveal. Click or any key skips.
 const intro = document.querySelector('.intro');

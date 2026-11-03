@@ -1,2 +1,5 @@
 node_modules/
 .claude/
+
+# full-res originals for the photo card; the site uses the optimized copies in images/portraits/
+images/me/
