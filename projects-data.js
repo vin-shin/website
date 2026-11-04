@@ -217,6 +217,10 @@ const projects = [
       'Optimized routing for pit-lane serviceability while meeting all FSAE structural clearance requirements',
     ],
     tags: ['RapidHarness', 'SolidWorks', 'CAN Bus', 'Deutsch Connectors', 'FSAE', 'EMI'],
+    docs: [
+      { src: './images/docs/gr26-front-harness.pdf', preview: './images/docs/gr26-front-harness.webp', title: 'Front Master Harness', body: 'Critical harnessing past the firewall: driver interface, pedal box, floor sense and steering, and the front suspension node.', meta: '9 pages · drawing, BOM, wiring table, cutlist' },
+      { src: './images/docs/gr26-rear-harness.pdf', preview: './images/docs/gr26-rear-harness.webp', title: 'Rear Master Harness', body: 'Everything behind the firewall bulkhead: ACU/BCU, attic connector, brake light, and the rear suspension node.', meta: '9 pages · drawing, BOM, wiring table, cutlist' },
+    ],
     icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/></svg>`,
   },
   {

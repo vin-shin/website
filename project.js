@@ -51,6 +51,22 @@ if (!p) {
         </div>
       </div>`;
 
+  // Optional documentation PDFs; the preview and the link both open the full PDF in a new tab
+  const docsHtml = !p.docs ? '' : `
+      <div class="proj-panel">
+        <p class="panel-label">Documentation</p>
+        <div class="dd-docs">${p.docs.map(d => `
+          <a class="dd-doc" href="${d.src}" target="_blank" rel="noopener">
+            <img src="${d.preview}" alt="Drawing sheet of the ${d.title}" loading="lazy" />
+            <div class="dd-doc-text">
+              <h3 class="dd-title">${d.title}</h3>
+              <p class="dd-body">${d.body}</p>
+              <p class="dd-doc-meta">${d.meta}<span class="dd-doc-open">Open PDF ↗</span></p>
+            </div>
+          </a>`).join('')}
+        </div>
+      </div>`;
+
   // Optional deep dive: specs at a glance, a schematic walkthrough, and layout notes with the stackup
   const dd = p.deepDive;
   // board image views (files in dd.layout.boards); stackup rows map top-to-bottom onto the copper views
@@ -113,7 +129,7 @@ if (!p) {
         <p class="panel-label">Overview</p>
         <p class="proj-desc">${p.description}</p>
         <ul class="proj-bullets">${bulletsHtml}</ul>
-      </div>${videosHtml}${photosHtml}${deepDiveHtml}
+      </div>${videosHtml}${photosHtml}${docsHtml}${deepDiveHtml}
       <div class="proj-panel">
         <p class="panel-label">Tags</p>
         <div class="proj-tags">${tagsHtml}</div>
