@@ -267,15 +267,12 @@ main.bento {
   object-position: center top;
   display: block;
   opacity: 0;
-  /* waiting photos sit just off the right edge; no transition, so they reset there instantly */
+  /* waiting photos sit just off the right edge; main.js slides the ones on screen */
   transform: translateX(100%);
+  transition: opacity 0.4s ease;
 }
 .photo-frame img.loaded { opacity: 1; }
-/* the showing photo slides in from the right while the previous one slides out to the left */
-.photo-frame img.active,
-.photo-frame img.leaving { transition: transform 0.8s cubic-bezier(.65, 0, .35, 1), opacity 0.4s ease; }
-.photo-frame img.active  { transform: none; }
-.photo-frame img.leaving { transform: translateX(-100%); }
+.photo-frame img.active { transform: none; }
 .photo-placeholder {
   position: absolute;
   inset: 0;

@@ -139,22 +139,40 @@ if (photoFrame) {
     img.src = img.dataset.src;
   }));
 
+  // The photos on screen sit side by side on one strip that slides left, so they always move
+  // together and rapid clicks can't open a gap between them. Each photo gets the next slot on
+  // the strip when it's shown; once its slot is fully off the left edge it drops off and waits
+  // at the right edge again.
+  const slots = new Map([[photos[0], 0]]);
+  let pos = 0, target = 0, glide = null;
+  const easeInOut = t => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+  const easeOut = t => 1 - (1 - t) ** 3; // when a click lands mid-slide, carry on without stalling
+  const place = () => {
+    for (const [img, slot] of slots) {
+      if (slot - pos <= -1) { slots.delete(img); img.style.transform = ''; }
+      else img.style.transform = `translateX(${(slot - pos) * 100}%)`;
+    }
+  };
   const show = i => {
-    const prev = photos[current];
-    photos.forEach(p => p.classList.remove('leaving')); // anything mid-exit snaps back to the right
-    prev.classList.remove('active');
-    prev.classList.add('leaving');
+    photos[current].classList.remove('active');
     current = i;
-    void photos[current].offsetWidth; // make sure it starts from the right edge before sliding in
-    photos[current].classList.add('active');
-    // once it's off screen, send the old one back to the right edge (instantly, no transition)
-    setTimeout(() => { if (prev !== photos[current]) prev.classList.remove('leaving'); }, 850);
+    photos[i].classList.add('active');
+    slots.set(photos[i], ++target);
+    const from = pos, start = performance.now(), ease = glide ? easeOut : easeInOut;
+    cancelAnimationFrame(glide);
+    const step = now => {
+      const t = Math.min((now - start) / 800, 1);
+      pos = from + (target - from) * ease(t);
+      place();
+      glide = t < 1 ? requestAnimationFrame(step) : null;
+    };
+    glide = requestAnimationFrame(step);
   };
   const next = () => {
-    // skip photos that haven't finished loading yet
+    // skip photos that haven't loaded yet or are still on the strip
     for (let k = 1; k < photos.length; k++) {
       const i = (current + k) % photos.length;
-      if (photos[i].classList.contains('loaded')) return show(i);
+      if (photos[i].classList.contains('loaded') && !slots.has(photos[i])) return show(i);
     }
   };
   const start = () => { clearInterval(cycle); cycle = setInterval(next, 5000); };
