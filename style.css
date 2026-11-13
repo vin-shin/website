@@ -302,6 +302,19 @@ main.bento {
 .exp-entry + .exp-entry {
   border-top: 1px solid var(--border);
 }
+.exp-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.exp-logo {
+  display: block;
+  width: 56px;
+  height: auto;
+  opacity: 0.85;
+  transition: opacity var(--transition);
+}
+.exp-entry:hover .exp-logo { opacity: 1; }
 .exp-date {
   font-family: var(--sans);
   font-size: 0.72rem;
@@ -1093,6 +1106,9 @@ footer {
     gap: 0.15rem;
   }
   .exp-date { padding-top: 0; margin-bottom: 0.5rem; }
+  .exp-meta { flex-direction: row; align-items: center; justify-content: space-between; }
+  .exp-meta .exp-date { margin-bottom: 0; }
+  .exp-logo { width: 36px; }
 
   .skill-row { flex-direction: column; gap: 0.3rem; }
   .skill-cat { min-width: unset; }
