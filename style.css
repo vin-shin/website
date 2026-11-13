@@ -314,6 +314,7 @@ main.bento {
   opacity: 0.85;
   transition: opacity var(--transition);
 }
+.exp-logo--wide { width: 112px; max-width: 100%; }
 .exp-entry:hover .exp-logo { opacity: 1; }
 .exp-date {
   font-family: var(--sans);
@@ -1109,6 +1110,7 @@ footer {
   .exp-meta { flex-direction: row; align-items: center; justify-content: space-between; }
   .exp-meta .exp-date { margin-bottom: 0; }
   .exp-logo { width: 36px; }
+  .exp-logo--wide { width: 80px; }
 
   .skill-row { flex-direction: column; gap: 0.3rem; }
   .skill-cat { min-width: unset; }
