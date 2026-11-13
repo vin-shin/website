@@ -289,10 +289,32 @@ main.bento {
 .photo-placeholder code { font-family: var(--mono); font-size: 0.75rem; color: var(--peach); }
 
 /* Experience timeline layout */
-.exp-entries {
+/* The card takes its height from the About card beside it (flex-basis 0 keeps the
+   list from stretching the grid row); older entries scroll inside it. */
+.panel-exp {
   display: flex;
   flex-direction: column;
 }
+.exp-entries {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.75rem;
+  margin-right: -0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--blue-rgb), 0.35) transparent;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 3rem), transparent);
+          mask-image: linear-gradient(to bottom, #000 calc(100% - 3rem), transparent);
+}
+.exp-entries.at-end {
+  -webkit-mask-image: none;
+          mask-image: none;
+}
+.exp-entries::-webkit-scrollbar { width: 6px; }
+.exp-entries::-webkit-scrollbar-thumb { background: rgba(var(--blue-rgb), 0.35); border-radius: 3px; }
+.exp-entries::-webkit-scrollbar-track { background: transparent; }
 .exp-entry {
   display: grid;
   grid-template-columns: 130px 1fr;
@@ -1111,6 +1133,8 @@ footer {
   .exp-meta .exp-date { margin-bottom: 0; }
   .exp-logo { width: 36px; }
   .exp-logo--wide { width: 80px; }
+  /* stacked layout: no neighbour to match, so cap the height instead */
+  .exp-entries { flex: none; max-height: 30rem; }
 
   .skill-row { flex-direction: column; gap: 0.3rem; }
   .skill-cat { min-width: unset; }

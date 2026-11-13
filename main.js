@@ -107,6 +107,17 @@ grid.querySelectorAll('model-viewer').forEach(mv => {
   });
 });
 
+// ── Experience list: drop the bottom fade once scrolled to the end ─
+const expList = document.querySelector('.exp-entries');
+if (expList) {
+  const updateExpFade = () => {
+    const atEnd = expList.scrollTop + expList.clientHeight >= expList.scrollHeight - 2;
+    expList.classList.toggle('at-end', atEnd);
+  };
+  expList.addEventListener('scroll', updateExpFade, { passive: true });
+  new ResizeObserver(updateExpFade).observe(expList);
+}
+
 // ── Scroll reveal ─────────────────────────────────────────────────
 const revealObserver = new IntersectionObserver((entries) => {
   const intersecting = entries
